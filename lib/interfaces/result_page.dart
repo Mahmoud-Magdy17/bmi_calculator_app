@@ -9,7 +9,7 @@ class ResultPage extends StatelessWidget {
   ResultPage({super.key});
   @override
   Widget build(BuildContext context) {
-  final args = ModalRoute.of(context)?.settings.arguments as Result;
+    final args = ModalRoute.of(context)?.settings.arguments as Result;
     return Scaffold(
       backgroundColor: darkRed,
       appBar: AppBar(
@@ -42,7 +42,7 @@ class ResultPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      args.isMale?"Male":"Female",
+                      args.isMale ? "Male" : "Female",
                       style: TextStyle(color: Colors.white, fontSize: 24),
                     ),
                     Text(
@@ -55,15 +55,19 @@ class ResultPage extends StatelessWidget {
                     ),
                     Text(
                       "${args.getBMIdescribe()} BMI range: ${args.getBMIrange()} kg/m",
-                      style: TextStyle(
+                      style: const TextStyle(
                         overflow: TextOverflow.visible,
                         color: Colors.white,
                         fontSize: 20,
-                      ),textAlign: TextAlign.center,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                     Center(
-                      child: Text("You Have ${args.getBMIdescribe()} Body Weight",
-                        style: TextStyle(color: lightRed, fontSize: 24),textAlign: TextAlign.center,),
+                      child: Text(
+                        "You Have ${args.getBMIdescribe()} Body Weight",
+                        style: TextStyle(color: lightRed, fontSize: 24),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),
@@ -75,7 +79,10 @@ class ResultPage extends StatelessWidget {
                 Navigator.pop(context, HomeInterface.routeName);
               },
               child: Container(
-                child: Text(
+                color: Colors.cyan,
+                height: 60,
+                alignment: Alignment.center,
+                child: const Text(
                   "Re-CALCULATE Your BMI",
                   style: TextStyle(
                     color: Colors.white,
@@ -83,9 +90,6 @@ class ResultPage extends StatelessWidget {
                     fontSize: 24,
                   ),
                 ),
-                color: Colors.cyan,
-                height: 60,
-                alignment: Alignment.center,
               ),
             )
           ],

@@ -3,8 +3,10 @@ import "package:bmi_calculator/assets/colors.dart";
 import "package:bmi_calculator/Widgets/gender.dart";
 import "package:bmi_calculator/interfaces/result_page.dart";
 import "package:bmi_calculator/models/data_model.dart";
+import "package:bmi_calculator/provider/my_app_provider.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
+import "package:provider/provider.dart";
 
 class HomeInterface extends StatefulWidget {
   static const String routeName = 'home interface';
@@ -15,12 +17,9 @@ class HomeInterface extends StatefulWidget {
 }
 
 class _HomeInterfaceState extends State<HomeInterface> {
-  bool isMale = true;
-  double sliderValue = 0;
-  int weight = 0;
-  int age = 0;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MyAppProvider>(context);
     return SafeArea(
       child: Column(
         children: [
@@ -34,26 +33,27 @@ class _HomeInterfaceState extends State<HomeInterface> {
                       GestureDetector(
                         onTap: () {
                           setState(() {});
-                          isMale = true;
+                          provider.isMale = true;
                         },
                         child: Gender(
                           Gicon: Icons.male,
                           Gtype: "Male",
-                          Gcolor: isMale ? darkWhite : lightRed,
+                          Gcolor: provider.isMale ? darkWhite : lightRed,
                         ),
                       ),
+                      
                       const Expanded(
                         child: SizedBox(),
                       ),
                       GestureDetector(
                         onTap: () {
                           setState(() {});
-                          isMale = false;
+                          provider.isMale = false;
                         },
                         child: Gender(
                           Gicon: Icons.female,
                           Gtype: "Female",
-                          Gcolor: isMale ? lightRed : darkWhite,
+                          Gcolor: provider.isMale ? lightRed : darkWhite,
                         ),
                       )
                     ],
@@ -76,7 +76,7 @@ class _HomeInterfaceState extends State<HomeInterface> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                "${(sliderValue * 100).toInt()}",
+                                "${(provider.sliderValue * 100).toInt()}",
                                 style: TextStyle(
                                   fontSize: 44,
                                   fontWeight: FontWeight.w700,
@@ -90,10 +90,10 @@ class _HomeInterfaceState extends State<HomeInterface> {
                             ],
                           ),
                           Slider(
-                              value: sliderValue,
+                              value: provider.sliderValue,
                               onChanged: (Value) {
                                 setState(() {});
-                                sliderValue = Value;
+                                provider.sliderValue = Value;
                               })
                         ],
                       )),
@@ -103,16 +103,16 @@ class _HomeInterfaceState extends State<HomeInterface> {
                       children: [
                         WeightAndHeight(
                           heightOrWeight: 'WEIGHT',
-                          count: weight,
-                          decrement: weightDecrement,
-                          increment: weightIncrement,
+                          count: provider.weight,
+                          decrement: provider.weightDecrement,
+                          increment: provider.weightIncrement,
                         ),
                         Expanded(child: SizedBox()),
                         WeightAndHeight(
                           heightOrWeight: "AGE",
-                          count: age,
-                          increment: ageIncrement,
-                          decrement: ageDecrement,
+                          count: provider.age,
+                          increment: provider.ageIncrement,
+                          decrement: provider.ageDecrement,
                         ),
                       ],
                     ),
@@ -127,10 +127,10 @@ class _HomeInterfaceState extends State<HomeInterface> {
                 context,
                 ResultPage.routeName,
                 arguments: Result(
-                  height: sliderValue ,
-                  isMale: this.isMale,
-                  weight: this.weight.toDouble(),
-                  age: this.age,
+                  height: provider.sliderValue,
+                  isMale: provider.isMale,
+                  weight: provider.weight.toDouble(),
+                  age: provider.age,
                 ),
               );
             },
@@ -151,29 +151,5 @@ class _HomeInterfaceState extends State<HomeInterface> {
         ],
       ),
     );
-  }
-
-  void weightIncrement() {
-    setState(() {
-      weight++;
-    });
-  }
-
-  void weightDecrement() {
-    setState(() {
-      weight--;
-    });
-  }
-
-  void ageIncrement() {
-    setState(() {
-      age++;
-    });
-  }
-
-  void ageDecrement() {
-    setState(() {
-      age--;
-    });
   }
 }
