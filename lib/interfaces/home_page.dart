@@ -5,18 +5,12 @@ import "package:bmi_calculator/interfaces/result_page.dart";
 import "package:bmi_calculator/models/data_model.dart";
 import "package:bmi_calculator/provider/my_app_provider.dart";
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 import "package:provider/provider.dart";
 
-class HomeInterface extends StatefulWidget {
+class HomeInterface extends StatelessWidget {
   static const String routeName = 'home interface';
   const HomeInterface({super.key});
 
-  @override
-  State<HomeInterface> createState() => _HomeInterfaceState();
-}
-
-class _HomeInterfaceState extends State<HomeInterface> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MyAppProvider>(context);
@@ -32,8 +26,7 @@ class _HomeInterfaceState extends State<HomeInterface> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          setState(() {});
-                          provider.isMale = true;
+                          provider.changeGender(true);
                         },
                         child: Gender(
                           Gicon: Icons.male,
@@ -41,14 +34,17 @@ class _HomeInterfaceState extends State<HomeInterface> {
                           Gcolor: provider.isMale ? darkWhite : lightRed,
                         ),
                       ),
-                      
-                      const Expanded(
-                        child: SizedBox(),
-                      ),
+
+                      SizedBox(width: 20,),
+                      ////////////////////////////
+                      ///
+
+                      ///
+                      ///////////////////////////////
+
                       GestureDetector(
                         onTap: () {
-                          setState(() {});
-                          provider.isMale = false;
+                          provider.changeGender(false);
                         },
                         child: Gender(
                           Gicon: Icons.female,
@@ -59,8 +55,8 @@ class _HomeInterfaceState extends State<HomeInterface> {
                     ],
                   ),
                   Container(
-                      padding: EdgeInsets.all(8),
-                      margin: EdgeInsets.only(top: 8, bottom: 8),
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(top: 8, bottom: 8),
                       decoration: BoxDecoration(
                           color: lightRed,
                           borderRadius: BorderRadius.circular(25)),
@@ -90,11 +86,11 @@ class _HomeInterfaceState extends State<HomeInterface> {
                             ],
                           ),
                           Slider(
-                              value: provider.sliderValue,
-                              onChanged: (Value) {
-                                setState(() {});
-                                provider.sliderValue = Value;
-                              })
+                            value: provider.sliderValue,
+                            onChanged: (Value) {
+                              provider.changeSliderValue(Value);
+                            },
+                          ),
                         ],
                       )),
                   Container(
@@ -107,7 +103,7 @@ class _HomeInterfaceState extends State<HomeInterface> {
                           decrement: provider.weightDecrement,
                           increment: provider.weightIncrement,
                         ),
-                        Expanded(child: SizedBox()),
+                        const Expanded(child: SizedBox()),
                         WeightAndHeight(
                           heightOrWeight: "AGE",
                           count: provider.age,
@@ -135,7 +131,10 @@ class _HomeInterfaceState extends State<HomeInterface> {
               );
             },
             child: Container(
-              child: Text(
+              color: Colors.cyan,
+              height: 60,
+              alignment: Alignment.center,
+              child: const Text(
                 "CALCULATE",
                 style: TextStyle(
                   color: Colors.white,
@@ -143,9 +142,6 @@ class _HomeInterfaceState extends State<HomeInterface> {
                   fontSize: 24,
                 ),
               ),
-              color: Colors.cyan,
-              height: 60,
-              alignment: Alignment.center,
             ),
           )
         ],

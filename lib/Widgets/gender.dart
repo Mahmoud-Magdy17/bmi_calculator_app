@@ -15,7 +15,7 @@ class Gender extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Gcolor,
                   borderRadius: BorderRadius.circular(24)),
-              width: 180,
+              width: 140,
               height: 140,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

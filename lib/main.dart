@@ -6,27 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => MyAppProvider(), child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        HomeInterface.routeName: (context) => HomeInterface(),
-        ResultPage.routeName: (context) => ResultPage(),
-      },
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: darkRed,
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("BMI CACLULATOR"),
-        ),
-        body: const HomeInterface(),
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (context) => MyAppProvider(),
+        child: MaterialApp(
+          routes: {
+            HomeInterface.routeName: (context) => HomeInterface(),
+            ResultPage.routeName: (context) => ResultPage(),
+          },
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: darkRed,
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text("BMI CACLULATOR"),
+            ),
+            body: const HomeInterface(),
+          ),
+        ));
   }
 }

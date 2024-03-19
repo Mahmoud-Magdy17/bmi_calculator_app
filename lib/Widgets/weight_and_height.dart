@@ -32,7 +32,7 @@ class _WeightAndHeightState extends State<WeightAndHeight> {
         borderRadius: BorderRadius.circular(28),
         color: lightRed,
       ),
-      width: 180,
+      width: 140,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -72,7 +72,7 @@ class _WeightAndHeightState extends State<WeightAndHeight> {
                 child: CircleAvatar(
                   minRadius: 28,
                   child: Icon(
-                    Icons.minimize_outlined,
+                    Icons.horizontal_rule,
                     size: 32,
                   ),
                 ),
